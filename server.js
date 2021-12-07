@@ -36,6 +36,23 @@ app.post("/newuser", (req, res) => {
     
 });
 
+//Log-in side
+app.post("/login", (req, res) => {
+
+    existingUser = JSON.parse(fs.readFileSync('databases/users.json'));
+
+    for(let i = 0; i < existingUser.length; i++) {
+
+        if(existingUser[i].username == req.body.username) {
+            if(existingUser[i].password == req.body.password) {
+
+                res.status(200).send(true);
+            } else {
+                res.status(400).send(false);
+            }
+        }
+    }
+});
 
 
 
