@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <script src="" async defer></script>
+    <title></title> 
+    <meta name="description" content="">
+</head>
+<body>
+  <div id="createproduct">
+    <h1>New Product</h1>
+    <form action="/createproduct" method="POST" enctype="multipart/form-data">
+
+      <input type="input" placeholder="Name" name="title" />
+
+      <select name="category">
+        <option value="Technology" id="tech">Technology</option>
+        <option value="Sport" id="sport">Sport</option>
+        <option value="Food"id="food">Food</option>
+        <option value="Outdoor" id="outdoor">Outdoor</option>
+        <option value="Other" id="other">Other</option>
+      </select>
+      <input type="number" placeholder="Price" name="price" />
+      <br/>
+      Picture <input type="file" name="picture"/>
+      <button type="submit" id="submit">Submit</button>
+    </form>
+  </div>
+</body>
+</html>
+

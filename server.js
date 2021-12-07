@@ -56,3 +56,26 @@ app.post("/login", (req, res) => {
 
 
 
+
+app.post('/createproduct', (req, res) => {
+
+    let title = req.body.title
+    let category = req.body.category
+    let price = req.body.price
+
+    let picturePath = req.files.picture.path.replace('\\', '/');
+
+    //Det nye produkt tilføjes til det array, der er hentet fra databasen
+    productArray.push({title, category, price, picturePath})
+    
+    //Proudukterne overskriver filen i databasen, med den nye vare tilføjet
+    fs.writeFile('databases/products.json', JSON.stringify(productArray, null, 4), err => {
+        if(err) res.send(err)
+
+        //Brugeren dirigeres tilabge til forsiden
+        res.redirect("http://localhost:3000/home.html");
+
+    })
+    
+
+})
