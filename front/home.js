@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     })
 
-    
+
     deleteUser = document.getElementById('userdelete').addEventListener("click", (e) => {
         e.preventDefault();
 
@@ -41,7 +41,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
     })
 
+    
+    deleteproduct = document.getElementById('submit').addEventListener("click", (e) => {
+        e.preventDefault();
 
+        title = document.getElementById('titleToDelete').value;
+
+        fetch("http://localhost:3000/deleteproduct/" + title, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application.json",
+            }
+        })
+            .then(response => response.json())
+            .then((data) => {
+                console.log(data)
+                alert("Product has been deleted")
+                })
+            .catch(
+                console.log(error)
+            )
+
+
+    })
 
 
 })

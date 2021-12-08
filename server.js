@@ -98,6 +98,28 @@ app.post('/createproduct', (req, res) => {
         res.redirect("http://localhost:3000/home.html");
 
     })
-    
-
 })
+
+
+app.delete("/deleteproduct/:title", (req, res) => {
+
+    let productArray = JSON.parse(fs.readFileSync('databases/products.json'))
+
+    for(let i = 0; i < productArray.length; i++) {
+        
+        if(productArray[i].title == req.params.title) {
+
+            productArray.splice(i, 1)
+
+            fs.writeFile('databases/products.json', JSON.stringify(productArray, null, 4), err => {
+                if(err) res.send(err)
+
+                res.status(200).json({
+                    msg: "Success"
+                })
+            })
+        }
+    }
+})
+
+
