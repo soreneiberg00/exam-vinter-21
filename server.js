@@ -55,6 +55,28 @@ app.post("/login", (req, res) => {
 });
 
 
+//Delete User
+app.delete("/deleteuser/:username", (req, res) => {
+
+    let userArray = JSON.parse(fs.readFileSync('databases/users.json'))
+
+    for(let i = 0; i < userArray.length; i++) {
+        
+        if(userArray[i].username == req.params.username) {
+
+            userArray.splice(i, 1)
+
+            fs.writeFile('databases/users.json', JSON.stringify(userArray, null, 4), err => {
+                if(err) res.send(err)
+
+                res.status(200).json({
+                    msg: "Success"
+                })
+            })
+        }
+    
+    }
+})
 
 
 app.post('/createproduct', (req, res) => {
