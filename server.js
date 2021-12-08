@@ -195,4 +195,49 @@ app.get("/products", (req, res) => {
     res.json(productArray)
 })
 
+
+//GET for en specifik kategori
+
+app.get("/products/:category", (req, res) => {
+
+    let productArray = JSON.parse(fs.readFileSync('databases/products.json'));
+
+    let productCategory = [];
+    
+    for(let i = 0; i < productArray.length; i++) {
+
+        if(productArray[i].category == req.params.category) {
+
+            productCategory.push(i)
+
+            res.json(productCategory)
+        } else {
+            res.send("Could not provide categories at the moment")
+        }
+    }
+})
+
+// Get for et bestemt username
+app.get("/products/:username", (req, res) => {
+
+    let productArray = JSON.parse(fs.readFileSync('databases/products.json'));
+
+    let productPerUser = [];
+    
+    for(let i = 0; i < productArray.length; i++) {
+
+        if(productArray[i].category == req.params.username) {
+
+            productPerUser.push(i)
+
+            res.json(productPerUser)
+        } else {
+            res.send("Could not provide categories at the moment")
+        }
+    }
+})
+
+
+
+
 module.exports = app;

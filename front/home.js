@@ -102,6 +102,86 @@ productReveal.addEventListener("click", async () => {
     })
 })
 
+//See products for a category
+let categorySubmit = document.getElementById("buttontocategory")
+
+categorySubmit.addEventListener("click", async () => {
+        
+        let categoryTable = document.getElementById("categorised");
+
+        let category = document.getElementById("category").value;
+    
+
+        categoryTable.innerHTML = `
+        <tr>
+            <th>Title </th>
+            <th>Category </th>
+            <th>Price </th>
+            <th>Image </th>
+        </tr>
+        `;
+
+
+        await fetch('http://localhost:3000/products/'+ category, {
+                method: 'GET',
+        })
+
+        .then((res) => {
+            
+            res.forEach((e) => {
+                categoryTable.innerHTML +=`
+                <tr>
+                    <th>${e.title} </th>
+                    <th>${e.category} </th>
+                    <th>${e.price}</th>
+                    <th> <img src ="${e.picturePath}" style="height: 50px; width: 50px;"</th>
+                </tr>
+                    `;
+            })
+        })
+        
+
+    })
+
+
+    // Show products for a certain user
+    let productsForUser = document.getElementById("submitforproducts");
+    
+    productsForUser.addEventListener("click", async () => {
+
+
+    let userTable = document.getElementById("peruser")
+    let username = document.getElementById("usernameforproduct").value;
+
+
+    userTable.innerHTML = `
+    <tr>
+        <th>Title </th>
+        <th>Category </th>
+        <th>Price </th>
+        <th>Image </th>
+    </tr>
+    `;
+
+
+    await fetch('http://localhost:3000/products/'+ username, {
+            method: 'GET',
+    })
+
+    .then((res) => {
+        
+        res.forEach((e) => {
+            categoryTable.innerHTML +=`
+            <tr>
+                <th>${e.title} </th>
+                <th>${e.category} </th>
+                <th>${e.price}</th>
+                <th> <img src ="${e.picturePath}" style="height: 50px; width: 50px;"</th>
+            </tr>
+                `;
+        })
+    })
+
 
 })
-
+});
