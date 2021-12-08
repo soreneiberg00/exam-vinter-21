@@ -54,8 +54,32 @@ app.post("/login", (req, res) => {
     }
 });
 
+// Opdatere en eksisterende bruger
 
-//Delete User
+app.put("/updateuser", (req, res) => {
+
+    let userArray = JSON.parse(fs.readFileSync('databases/users.json'))
+
+    for(let i = 0; i < userArray.length; i++) {
+        
+        if(userArray[i].username == req.body.username) {
+
+           userArray[i].password = req.body.password,
+
+            fs.writeFile('databases/users.json', JSON.stringify(userArray, null, 4), err => {
+                if(err) res.send(err)
+
+                res.status(200).json({
+                    msg: "Success"
+                })
+            })
+        }
+    
+    }
+    
+});
+
+//Slet bruger
 app.delete("/deleteuser/:username", (req, res) => {
 
     let userArray = JSON.parse(fs.readFileSync('databases/users.json'))
@@ -100,6 +124,30 @@ app.post('/createproduct', (req, res) => {
     })
 })
 
+//Opdater eksisterende produkt
+app.put("/updateproduct", (req, res) => {
+
+    let productArray = JSON.parse(fs.readFileSync('databases/products.json'))
+
+    for(let i = 0; i < productArray.length; i++) {
+        
+        if(productArray[i].title == req.body.title) {
+
+            productArray[i].category = req.body.category,
+            productArray[i].price = req.body.price
+
+            fs.writeFile('databases/products.json', JSON.stringify(productArray, null, 4), err => {
+                if(err) res.send(err)
+
+                res.status(200).json({
+                    msg: "Success"
+                })
+            })
+        }
+    
+    }
+    
+});
 
 app.delete("/deleteproduct/:title", (req, res) => {
 
