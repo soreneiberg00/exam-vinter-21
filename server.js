@@ -1,16 +1,16 @@
 const express = require('express');
 const app = express();
 const fs = require("fs");
-
-
-
+//Jeg henter form-data, som benyttes til at lave en ny bruger
+const formData = require('express-form-data');
 
 app.use(express.static("./front"));
 app.use(express.static("./products"));
 app.use(express.static("./users"));
-
+app.use('/', express.static('products'));
 
 app.use(express.json())
+
 
 //Starter serveren
 app.listen(3000, () => {
@@ -103,6 +103,22 @@ app.delete("/deleteuser/:username", (req, res) => {
 })
 
 
+//Laver opsætning til at kunne oprette produkter
+
+//Mappe som billederne skal kunne gemmes i og hentes fra
+app.use('/databasePictures',  express.static('databasePictures'));
+
+//Jeg definerer den mappe billederne skal gemmes i
+const options = {
+    uploadDir: './databasePictures'
+};
+
+// Benytter formData og express til at gemme billederne i "databasePictures"-mappen
+app.use(formData.parse(options));
+
+let productArray = JSON.parse(fs.readFileSync('databases/products.json'))
+
+
 app.post('/createproduct', (req, res) => {
 
     let title = req.body.title
@@ -171,3 +187,12 @@ app.delete("/deleteproduct/:title", (req, res) => {
 })
 
 
+// Se alle produkter til salg
+app.get("/products", (req, res) => {
+
+    let productArray = JSON.parse(fs.readFileSync('databases/products.json'))
+
+    res.json(productArray)
+})
+
+module.exports = app;

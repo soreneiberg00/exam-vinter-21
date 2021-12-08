@@ -66,5 +66,42 @@ document.addEventListener("DOMContentLoaded", function () {
     })
 
 
+    
+
+//See all products for sale
+let productReveal = document.getElementById("seeproducts");
+let table = document.getElementById("products")
+
+productReveal.addEventListener("click", async () => {
+    table.innerHTML = `
+    <tr>
+        <th>Title </th>
+        <th>Category </th>
+        <th>Price </th>
+        <th>Image </th>
+    </tr>
+    `;
+
+    await fetch('http://localhost:3000/products', {
+        method: 'GET',
+    })
+    .then((res) => res.json())
+    .then((res) => {
+        console.log(res);
+
+        res.forEach((e) => {
+            table.innerHTML +=`
+            <tr>
+                <th>${e.title} </th>
+                <th>${e.category} </th>
+                <th>${e.price}</th>
+                <th> <img src ="${e.picturePath}" style="height: 50px; width: 50px;"</th>
+    </tr>
+            `;
+        })
+    })
+})
+
+
 })
 
