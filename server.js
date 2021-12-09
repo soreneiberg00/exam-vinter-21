@@ -104,7 +104,6 @@ app.delete("/deleteuser/:username", (req, res) => {
 
 
 //Laver opsætning til at kunne oprette produkter
-
 //Mappe som billederne skal kunne gemmes i og hentes fra
 app.use('/databasePictures',  express.static('databasePictures'));
 
