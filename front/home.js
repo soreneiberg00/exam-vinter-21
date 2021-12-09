@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault();
 
         //Værdien fra inputfeltet defineres som "username"
-        username = document.getElementById("userToDelete").value;
+        username = document.getElementById("userToBeDeleted").value;
 
         //Sender en request til serveren med "username" som parameter
         fetch("http://localhost:3000/deleteuser/" + username, {
@@ -35,8 +35,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     
     // Der lyttes på knappen "submit"
-    deleteproduct = document.getElementById('submit').addEventListener("click", (e) => {
-        e.preventDefault();
+    deleteproduct = document.getElementById('submit').addEventListener("click", () => {
+      
 
         //Værdien i inputfeltet defineres som "title"
         title = document.getElementById('titleToDelete').value;
